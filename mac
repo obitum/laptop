@@ -89,6 +89,12 @@ gem_install_or_update() {
   fi
 }
 
+if ! command -v upgrade_oh_my_zsh >/dev/null; then
+  fancy_echo "Installing Oh My Zsh ..."
+    curl -fsSL \
+      'https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh'
+fi
+
 if ! command -v brew >/dev/null; then
   fancy_echo "Installing Homebrew ..."
     curl -fsS \
@@ -112,19 +118,13 @@ brew update --force # https://github.com/Homebrew/brew/issues/1151
 brew bundle --file=- <<EOF
 tap "thoughtbot/formulae"
 tap "homebrew/services"
-tap "universal-ctags/universal-ctags"
-tap "heroku/brew"
 
 # Unix
-brew "universal-ctags", args: ["HEAD"]
 brew "git"
+brew "git-flow"
 brew "openssl"
 brew "rcm"
-brew "reattach-to-user-namespace"
-brew "the_silver_searcher"
-brew "tmux"
-brew "vim"
-brew "watchman"
+# brew "rbenv"
 brew "zsh"
 
 # Heroku
@@ -139,13 +139,32 @@ brew "imagemagick"
 
 # Programming language prerequisites and package managers
 brew "libyaml" # should come after openssl
-brew "coreutils"
 brew "yarn"
+brew "v8@3.15"
 cask "gpg-suite"
 
 # Databases
-brew "postgres", restart_service: :changed
+brew "mariadb@10.1", restart_service: :changed
 brew "redis", restart_service: :changed
+brew "memcached", restart_service: :changed
+
+# Casks
+cask "1password"
+cask "atom"
+cask "caffeine"
+cask "caffeine"
+cask "dropbox"
+cask "firefox"
+cask "focus"
+cask "fliqlo"
+cask "github"
+cask "google-chrome"
+cask "microsoft-edge"
+cask "ngrok"
+cask "slack"
+cask "transmit"
+cask "transmit-disk"
+cask "the-unarchiver"
 EOF
 
 fancy_echo "Update heroku binary ..."
