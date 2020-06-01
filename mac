@@ -89,7 +89,7 @@ gem_install_or_update() {
   fi
 }
 
-if ! command -v upgrade_oh_my_zsh >/dev/null; then
+if [ ! -f "$HOME/.oh-my-zsh" ]; then
   fancy_echo "Installing Oh My Zsh ..."
     curl -fsSL \
       'https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh'
