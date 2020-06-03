@@ -92,7 +92,7 @@ gem_install_or_update() {
 if [ ! -f "$HOME/.oh-my-zsh" ]; then
   fancy_echo "Installing Oh My Zsh ..."
     curl -fsSL \
-      'https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh'
+      'https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh' | sh
 fi
 
 if ! command -v brew >/dev/null; then
@@ -116,7 +116,6 @@ fi
 fancy_echo "Updating Homebrew formulae ..."
 brew update --force # https://github.com/Homebrew/brew/issues/1151
 brew bundle --file=- <<EOF
-tap "thoughtbot/formulae"
 tap "homebrew/services"
 
 # Unix
@@ -124,12 +123,7 @@ brew "git"
 brew "git-flow"
 brew "openssl"
 brew "rcm"
-# brew "rbenv"
 brew "zsh"
-
-# Heroku
-brew "heroku/brew/heroku"
-brew "parity"
 
 # GitHub
 brew "hub"
@@ -140,6 +134,8 @@ brew "imagemagick"
 # Programming language prerequisites and package managers
 brew "libyaml" # should come after openssl
 brew "yarn"
+brew "cmake"
+brew "pkg-config"
 brew "v8@3.15"
 cask "gpg-suite"
 
@@ -152,7 +148,6 @@ brew "memcached", restart_service: :changed
 cask "1password"
 cask "atom"
 cask "caffeine"
-cask "caffeine"
 cask "dropbox"
 cask "firefox"
 cask "focus"
@@ -162,8 +157,6 @@ cask "google-chrome"
 cask "microsoft-edge"
 cask "ngrok"
 cask "slack"
-cask "transmit"
-cask "transmit-disk"
 cask "the-unarchiver"
 EOF
 
